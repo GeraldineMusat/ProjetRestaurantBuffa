@@ -4,6 +4,7 @@ import App from './App.vue';
 import Restaurants from './components/Restaurants.vue';
 import Add from './components/AddRestaurants.vue';
 import Delete from './components/DeleteRestaurants.vue';
+import Info from './components/Info.vue';
 
 // Définition des routes
 Vue.use(VueRouter);
@@ -12,12 +13,15 @@ const routes = [
 	{path:'/restaurants', component: Restaurants},
 	{path:'/add', component: Add},
 	{path:'/delete', component: Delete},
+	{path:'/info', component: Info},
 ]
 
 const router = new VueRouter({
 	routes: routes,
 	mode:'history'
 })
+
+Vue.component("app-info", Info);
 
 new Vue({
   el: '#app',

@@ -9,6 +9,9 @@
 		<router-link to="/add">Ajouter restaurant</router-link>
 		<router-link to="/delete">Supprimer restaurant</router-link>
     </div>
+	
+	<app-info></app-info>
+	<router-view></router-view>
   </div>
 </template>
 
