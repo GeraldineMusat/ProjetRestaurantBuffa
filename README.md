@@ -11,3 +11,12 @@ A rendre le 10 janvier 2019
 * Affichage detaille d'un restaurant (photo + addresse google + carte menu detaille)
 * Affichage du menu d'un restaurant
 * Affichage recapitulatif commande : facture 
+
+## Reste a faire : 
+
+* Modification restaurant 
+* Ajout restaurant 
+* Affichage detaille restaurant 
+* Affichage Menu restaurant 
+* Affichage recapitulatif commande : facture 
+* CSS 
