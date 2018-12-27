@@ -16,7 +16,6 @@ A rendre le 10 janvier 2019
 
 * Modification restaurant 
 * Ajout restaurant 
-* Affichage detaille restaurant 
 * Affichage Menu restaurant 
 * Affichage recapitulatif commande : facture 
-* CSS 
+* TOUT LE CSS 
