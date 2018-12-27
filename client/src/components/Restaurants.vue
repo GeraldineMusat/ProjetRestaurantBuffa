@@ -19,6 +19,7 @@
                 <td>{{r.name}}</td>
                 <td> {{r.cuisine}}</td>
                 <td>  
+                    <router-link :to="`/detail/${r._id}`">Detail</router-link>
                     <button v-on:click="supprimerRestaurant(index)">Delete</button> 
                     <button v-on:click="modifierRest(index)">Modifier</button> 
                 </td>
@@ -52,6 +53,7 @@ export default {
         
         console.log("AVANT AFFICHAGE");
         this.getRestaurantsFromServer();
+        console.log(this.restaurants);
         
     },
     methods: {
@@ -70,10 +72,12 @@ export default {
                         // ici on a une réponse en JS
                         this.restaurants = reponseJS.data;
                         this.nbRestaurants = reponseJS.count;
+                        console.log(reponseJS);
                     })
                     .catch((err) => {
                         console.log("Une erreur est intervenue " + err);
                     })
+                    console.log(this.nbRestaurants);
 		},
 		supprimerRestaurant(index) { // Supprimer un restaurant
 		  //this.restaurants.splice(index, 1);
@@ -144,7 +148,7 @@ export default {
 					console.log(err);
 			});
 
-				},
+        },
 		ajouterRestaurant(event) {
 			// eviter le comportement par defaut
 			event.preventDefault();
