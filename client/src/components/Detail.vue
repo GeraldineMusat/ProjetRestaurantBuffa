@@ -1,19 +1,24 @@
 <template>
   <div>
     <h3>Detail du restaurant : {{restaurant.name}}</h3>
-    
+
     <!-- <router-link :to="`/menu/${r._id}`">Menu</router-link>  -->
+    <app-restau-detail
+      v-bind:cuisine="restaurant.cuisine"
+      v-bind:building="restaurant.address.building"
+      v-bind:street="restaurant.address.street"
+      v-bind:zipcode="restaurant.address.zipcode"
+      v-bind:borough="restaurant.borough"
+    ></app-restau-detail>
 
-    <app-restau-detail v-bind:cuisine="restaurant.cuisine" 
-                       v-bind:building="restaurant.address.building" 
-                       v-bind:street="restaurant.address.street" 
-                       v-bind:zipcode="restaurant.address.zipcode" 
-                       v-bind:borough="restaurant.borough"> 
-    </app-restau-detail>
+    <h4>Note(s)</h4>
 
-<h4>Note(s)</h4>
-
-    <app-grades v-for="g in grades" v-bind:date="g.date" v-bind:grade="g.grade" v-bind:score="g.score"></app-grades>
+    <app-grades
+      v-for="g in grades"
+      v-bind:date="g.date"
+      v-bind:grade="g.grade"
+      v-bind:score="g.score"
+    ></app-grades>
   </div>
 </template>
 
