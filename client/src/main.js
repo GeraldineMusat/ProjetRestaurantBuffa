@@ -4,6 +4,7 @@ import App from "./App.vue";
 import Restaurants from "./components/Restaurants.vue";
 import Add from "./components/AddRestaurants.vue";
 import Detail from "./components/Detail.vue";
+import Modif from "./components/ModifRestaurant.vue";
 
 // Définition des routes
 Vue.use(VueRouter);
@@ -11,14 +12,14 @@ Vue.use(VueRouter);
 const routes = [
   { path: "/restaurants", component: Restaurants },
   { path: "/add", component: Add },
-  { path: "/detail/:id", component: Detail }
+  { path: "/detail/:id", component: Detail },
+  { path: "/modif/:id", component: Modif }
 ];
 
 const router = new VueRouter({
   routes: routes,
   mode: "history"
 });
-
 
 Vue.component("app-grades", {
   props: ["date", "grade", "score"],

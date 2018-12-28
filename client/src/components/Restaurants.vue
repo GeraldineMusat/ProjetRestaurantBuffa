@@ -33,7 +33,8 @@
           <td>
             <router-link class="rl" :to="`/detail/${r._id}`">Detail</router-link>
             <button v-on:click="supprimerRestaurant(index)">Delete</button>
-            <button v-on:click="modifierRest(index)">Modifier</button>
+            <!-- <button v-on:click="modifierRest(index)">Modifier</button> -->
+            <router-link class="rl" :to="`/modif/${r._id}`">Modifier</router-link>
           </td>
         </tr>
       </tbody>
