@@ -13,8 +13,7 @@ A rendre le 10 janvier 2019
 * Affichage recapitulatif commande : facture 
 
 ## Reste a faire : 
-
-* Modification restaurant 
+ 
 * Rechercher un restaurant
 * Affichage Menu restaurant 
 * Algorithme generation aleatoire menu pour restaurant
