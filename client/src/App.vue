@@ -1,15 +1,26 @@
 <template>
   <div id="app">
     <header>
-      <h1>{{ msg }}</h1>
-      <h2>Navigation</h2>
+
     </header>
-	<div>
-		<router-link to="/">Home</router-link>
-		<router-link to="/restaurants">Restaurants</router-link>
-		<router-link to="/add">Ajouter restaurant</router-link>
-    </div>
-	
+
+
+					<!-- Logo -->
+						<div>
+							<h1>{{ msg }}</h1>
+							<p>Navigation</p>
+						</div>
+
+					<!-- Nav -->
+						<nav>
+							<ul>
+								<li><router-link to="/">Home</router-link></li>
+								<li><router-link to="/restaurants">Restaurants</router-link></li>
+								<li><router-link to="/add">Ajouter restaurant</router-link></li>
+							</ul>
+						</nav>
+
+			
 	<app-info></app-info>
 	<router-view></router-view>
   </div>
@@ -28,29 +39,23 @@ export default {
 </script>
 
 <style>
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+ 
 }
 
 h1, h2 {
-  font-weight: normal;
+
 }
 
 ul {
-  text-align: left;
+
 }
-/*
-li {
-  display: inline-block;
-  margin: 0 10px;
-} */
 
 a {
-  color: #42b983;
+
 }
+
+
+
 </style>

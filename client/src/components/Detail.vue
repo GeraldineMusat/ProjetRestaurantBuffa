@@ -2,6 +2,7 @@
   <div>
     <h3>Detail du restaurant : {{restaurant.name}}</h3>
     
+    <!-- <router-link :to="`/menu/${r._id}`">Menu</router-link>  -->
 
     <app-restau-detail v-bind:cuisine="restaurant.cuisine" 
                        v-bind:building="restaurant.address.building" 

@@ -1,5 +1,5 @@
 <template>		
-	<div>
+	<div class="app">
 		<h3>Nombre de restaurants par page : {{restaurants.length}}</h3>
         <label>
             5
@@ -19,17 +19,19 @@
                 <td>{{r.name}}</td>
                 <td> {{r.cuisine}}</td>
                 <td>  
-                    <router-link :to="`/detail/${r._id}`">Detail</router-link>
+                    <router-link class="rl" :to="`/detail/${r._id}`">Detail</router-link>
                     <button v-on:click="supprimerRestaurant(index)">Delete</button> 
                     <button v-on:click="modifierRest(index)">Modifier</button> 
                 </td>
             </tr>
             </tbody>
         </table>
-        <button v-on:click="premiere">Premiere page</button>
-        <button v-on:click="precedent">Precedent</button>
-        <button v-on:click="suivant">Suivant</button>
-        <button v-on:click="derniere">Derniere page</button>
+        <div class="div-center">
+            <button v-on:click="premiere">Premiere page</button>
+            <button v-on:click="precedent">Precedent</button>
+            <button v-on:click="suivant">Suivant</button>
+            <button v-on:click="derniere">Derniere page</button>
+        </div>
 	</div>
 </template>
 
@@ -180,7 +182,7 @@ export default {
 		    
 		},
 		getColor(index) {
-		  return (index % 2) ? 'lightBlue' : 'pink';
+		  return (index % 2) ? '#9E8671' : '#B69183';
 		},
 		precedent(event) { // Pour la pagination page precedente
 			if(this.page > 0 ){
@@ -234,31 +236,55 @@ export default {
     }
 
     button {
-        background: #51B767;
+        background: #9E7284;
         color: #ffffff;
         padding: 15px;
         border-radius: 0;
         font-weight: bold;
         font-size: 15px;
         border: 0;
+        border-radius: 10px;
     }
 
     table {
-        border:1px solid black;
-        width:100%;
-        border-collapse:collapse;
+        border-radius: 10px;
+        border:none;
+        border-collapse:none;
+        margin: auto;
     }
 
     tr, td {
         border:1px solid black;
+        border-radius: 10px;
+        color: #ffffff;
+        font-size: 15px;
     }
 
     td {
         padding: 5px;
+        border-radius: 10px;
     }
 
     .bordureRouge {
         border:2px dashed red;
     }
+
+    .div-center {
+        margin: 0 auto;
+        width: 500px;
+    }
+
+    .rl {
+        text-decoration: none;
+        background: #9E7284;
+        color: #ffffff;
+        padding: 15px;
+        border-radius: 0;
+        font-weight: bold;
+        font-size: 15px;
+        border: 0;
+        border-radius: 10px;
+    }
+   
 
 </style>
