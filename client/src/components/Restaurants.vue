@@ -1,21 +1,18 @@
 <template>		
 	<div class="app">
 		<h3>Nombre de restaurants par page : {{restaurants.length}}</h3>
-        <label>
-            5
-        </label>
-        <input type="range" min="5" max="100" value="10" v-model="pagesize" v-on:input="onChg(event)">
-        <label>
-            100
-        </label>
+  
+        <div class="slidecontainer">
+        <input type="range" min="5" max="100" value="10" v-model="pagesize" v-on:input="onChg(event)" class="slider" id="myRange">
+        </div>
         <table>
-            <tr>
+            <tr class="title">
             <th>Nom</th>
             <th>Cuisine </th>
             <th>Action </th>
             </tr>
             <tbody>
-            <tr v-for="r,index in restaurants" v-bind:style="{backgroundColor:getColor(index)}" v-bind:class="{bordureRouge:(index === 2)}">
+            <tr class="content" v-for="r,index in restaurants" v-bind:style="{backgroundColor:getColor(index)}" v-bind:class="{bordureRouge:(index === 2)}">
                 <td>{{r.name}}</td>
                 <td> {{r.cuisine}}</td>
                 <td>  
@@ -26,7 +23,7 @@
             </tr>
             </tbody>
         </table>
-        <div class="div-center">
+        <div class="div-center b">
             <button v-on:click="premiere">Premiere page</button>
             <button v-on:click="precedent">Precedent</button>
             <button v-on:click="suivant">Suivant</button>
@@ -182,7 +179,7 @@ export default {
 		    
 		},
 		getColor(index) {
-		  return (index % 2) ? '#9E8671' : '#B69183';
+		  return (index % 2) ? '#CAC1B4' : '#DFD7CA';
 		},
 		precedent(event) { // Pour la pagination page precedente
 			if(this.page > 0 ){
@@ -219,6 +216,7 @@ export default {
 
 <style>
     body {
+        
     }
 
     #app {
@@ -236,14 +234,14 @@ export default {
     }
 
     button {
-        background: #9E7284;
-        color: #ffffff;
+        background: #CDB1B2;
+        color: #7E3D4E;
         padding: 15px;
         border-radius: 0;
         font-weight: bold;
         font-size: 15px;
         border: 0;
-        border-radius: 10px;
+        border-radius: 50px;
     }
 
     table {
@@ -253,11 +251,19 @@ export default {
         margin: auto;
     }
 
-    tr, td {
-        border:1px solid black;
+    .content {
+        border:1px solid 878177;
         border-radius: 10px;
-        color: #ffffff;
+        color: #665E52;
         font-size: 15px;
+    }
+
+    .title {
+       border:1px solid 878177;
+        border-radius: 10px;
+        font-size: 15px; 
+        font-weight: bold;
+        font-size: 25px;
     }
 
     td {
@@ -276,15 +282,63 @@ export default {
 
     .rl {
         text-decoration: none;
-        background: #9E7284;
-        color: #ffffff;
+        background: #CDB1B2;
+        color: #7E3D4E;
         padding: 15px;
         border-radius: 0;
         font-weight: bold;
         font-size: 15px;
         border: 0;
-        border-radius: 10px;
+        border-radius: 50px;
     }
    
+   .b > button {
+        background: #7E3D4E;
+        color: #D6BFD1;
+        padding: 15px;
+        border-radius: 0;
+        font-size: 15px;
+        border: 0;
+        border-radius: 5px;
+   }
+
+.slidecontainer {
+  width: 60%;
+  margin: auto;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;
+  background: #CDB1B2;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #7E3D4E;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #7E3D4E;
+  cursor: pointer;
+}
 
 </style>

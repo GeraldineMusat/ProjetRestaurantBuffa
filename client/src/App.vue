@@ -1,25 +1,11 @@
 <template>
   <div id="app">
-    <header>
 
-    </header>
-
-
-					<!-- Logo -->
-						<div>
-							<h1>{{ msg }}</h1>
-							<p>Navigation</p>
-						</div>
-
-					<!-- Nav -->
-						<nav>
 							<ul>
-								<li><router-link to="/">Home</router-link></li>
-								<li><router-link to="/restaurants">Restaurants</router-link></li>
-								<li><router-link to="/add">Ajouter restaurant</router-link></li>
-							</ul>
-						</nav>
-
+								<li><a><router-link to="/">Home</router-link></a></li>
+								<li><a><router-link to="/restaurants">Restaurants</router-link></a></li>
+								<li><a><router-link to="/add">Ajouter restaurant</router-link></a></li>
+							</ul>			
 			
 	<app-info></app-info>
 	<router-view></router-view>
@@ -40,22 +26,35 @@ export default {
 
 <style>
 
-#app {
- 
-}
-
-h1, h2 {
-
+body {
+ 	background-image: url("img/bg1.jpg");
 }
 
 ul {
-
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #BC8F8F;
+  border-radius: 10px;
 }
 
-a {
-
+li {
+  float: left;
+  border-right:1px solid #bbb;
 }
 
+li:last-child {
+  border-right: none;
+}
 
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 23px;
+}
 
 </style>
