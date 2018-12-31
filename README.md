@@ -15,6 +15,5 @@ A rendre le 10 janvier 2019
 ## Reste a faire : 
  
 * Affichage adresse restaurant sur une map
-* passer commande dans un restaurant (selectionner un nombre de personne + des plats)
 * Affichage recapitulatif commande : facture 
 * CSS 
