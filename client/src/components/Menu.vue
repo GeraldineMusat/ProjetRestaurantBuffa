@@ -2,15 +2,24 @@
   <div>
     <h3>Detail du restaurant : {{restaurant.name}}</h3>
     <button v-on:click="RedirectUrl()">Retour a la fiche detail du restaurant</button> 
-
+    <button v-on:click="passezCommande()">Passez commande</button> 
+    <h3>Total TTC : {{total}}</h3>
     <table>
       <tr class="title">
         <th>Entrees</th>
+        <th>Prix</th>
+        <th>Quantite</th>
       </tr>
       <tbody>
-        <tr class="content" v-for="e in tab_entrees">
+        <tr class="content" v-for="e,index in tab_entrees">
         
-          <td>{{ e }}</td>
+          <td>{{ e.entree }}</td>
+          <td>{{ e.prix }} E</td>
+          <td>
+                <button v-on:click="increase_quantity(index, tab_entrees)">+</button>
+                <input readonly type="number" name="value_quantity" min="0" max="100" v-bind:value=e.qu>
+                <button  v-on:click="decrese_quantity(index, tab_entrees)">-</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -18,13 +27,21 @@
     <table>
       <tr class="title">
         <th>Plats</th>
+        <th>Prix</th>
+        <th>Quantite</th>
       </tr>
       <tbody>
         <tr
           class="content"
-          v-for="p in tab_plats"
+          v-for="p, index in tab_plats"
         >
-          <td>{{p}}</td>
+          <td>{{p.plat}}</td>
+          <td>{{p.prix}} E</td>
+          <td>
+                <button v-on:click="increase_quantity(index, tab_plats)">+</button>
+                <input readonly type="number" name="value_quantity" min="0" max="100" v-bind:value=p.qu>
+                <button  v-on:click="decrese_quantity(index, tab_plats)">-</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -32,13 +49,21 @@
     <table>
       <tr class="title">
         <th>Desserts</th>
+        <th>Prix</th>
+        <th>Quantite</th>
       </tr>
       <tbody>
         <tr
           class="content"
-          v-for="d in tab_desserts"
+          v-for="d, index in tab_desserts"
         >
-          <td>{{d}}</td>
+          <td>{{d.dessert}}</td>
+          <td>{{d.prix}} E</td>
+          <td>
+                <button v-on:click="increase_quantity(index,tab_desserts)">+</button>
+                <input readonly type="number" name="value_quantity" min="0" max="100" v-bind:value=d.qu>
+                <button  v-on:click="decrese_quantity(index, tab_desserts)">-</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -73,19 +98,34 @@ export default {
       tab_entrees: [],
       tab_plats:[],
       tab_desserts: [],
-      entrees: [
-          'salade chevre chaud', 
-          'poivrons grillee', 
-          'salade nicoise', 
-          'feuillete chevre', 
-          'salade tomates mozarella', 
-          'escargot',
-          'farcie nicois',
-          'bruchceta',
-          'charcuterie',
-          'quiche lorraine'  
-        ],
-      plats: [
+      entrees: {
+          entree: [
+            'salade chevre chaud', 
+            'poivrons grillee', 
+            'salade nicoise', 
+            'feuillete chevre', 
+            'salade tomates mozarella', 
+            'escargot',
+            'farcie nicois',
+            'bruchceta',
+            'charcuterie',
+            'quiche lorraine'
+          ],
+          prix: [
+              10,
+              12,
+              9,
+              5,
+              8,
+              12,
+              10,
+              10,
+              14,
+              10
+          ]
+      },
+      plats: {
+          plat: [
           'pizza fromage',
           'pizza reine',
           'bouchee a la reine',
@@ -96,8 +136,22 @@ export default {
           'moule frites',
           'pene a la norvegienne',
           'escalope milanaise'
-      ],
-      desserts: [
+          ],
+          prix: [
+              10,
+              9,
+              15,
+              12,
+              19,
+              20,
+              14,
+              15,
+              10,
+              17
+          ]
+      },
+      desserts: {
+          dessert:[
           'banana split',
           'glace vanille',
           'tiramisu',
@@ -108,7 +162,22 @@ export default {
           'faisselle',
           'fromage',
           'tarte tatin'
-      ]
+          ],
+          prix: [
+              8,
+              6,
+              9,
+              5,
+              7,
+              6,
+              9,
+              4,
+              6,
+              8
+          ]
+      },
+      value_quantity:0,
+      total:0
     };
   },
   mounted() {
@@ -155,15 +224,26 @@ export default {
         */
         
         var rd;
+        var obj = {};
+        var ent = "";
+        var pr = 0;
         for(var i= 0; i < 5; i++){
             rd = this.getRandomInt(10);
-            this.tab_entrees.push(this.entrees[rd]);
-            this.tab_plats.push(this.plats[rd]);
-            this.tab_desserts.push(this.desserts[rd]);
+            ent = this.entrees.entree[rd];
+            pr = this.entrees.prix[rd];
+            obj = {'entree' : ent , 'prix': pr, qu:0};
+            this.tab_entrees.push(obj);
+            ent = this.plats.plat[rd];
+            pr = this.plats.prix[rd];
+            obj = {'plat' : ent , 'prix': pr, qu:0};
+            this.tab_plats.push(obj);
+            ent = this.desserts.dessert[rd];
+            pr = this.desserts.prix[rd];
+            obj = {'dessert' : ent , 'prix': pr, qu:0};
+            this.tab_desserts.push(obj);
         }
-    },
-    getColor(index) {
-      return index % 2 ? "#CAC1B4" : "#DFD7CA";
+        console.log(this.tab_entrees);
+        console.log(this.tab_entrees);
     },
     recupResto() {
       var CheminComplet = document.location.href;
@@ -175,7 +255,20 @@ export default {
       var tab = CheminComplet.split("/");
       var url = tab[0] + "/detail/" + tab[4];
       window.location.replace(url);
-    }
+    },
+    increase_quantity(index, tab) {
+        tab[index]['qu']++;
+        this.total = this.total + tab[index]['prix'];
+        console.log(this.total);
+    },
+    decrese_quantity(index, tab) {
+        if(tab[index].qu > 0){
+            tab[index].qu--;
+            this.total = this.total - tab[index]['prix'];
+        }
+        console.log(this.total);
+    },
+    passezCommance() {}
   }
 };
 </script>
