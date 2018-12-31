@@ -2,7 +2,9 @@
   <div class="app">
       <h3>Nombre de restaurants total : {{nbRestaurants}}</h3>
     <h3>Nombre de restaurants par page : {{restaurants.length}}</h3>
-
+<label>
+    Rechercher : <input type="text" v-on:input="chercherRestaurants" v-model="nameRecherche"> 
+  </label>
     <div class="slidecontainer">
       <input
         type="range"
@@ -114,82 +116,6 @@ export default {
             this.getRestaurantsFromServer();
 
             // remettre le formulaire à zéro
-          });
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
-    },
-    modifierRest(index) {
-      this.name = this.restaurants[index].name;
-      console.log(this.nom);
-      this.cuisine = this.restaurants[index].cuisine;
-      this.restID = this.restaurants[index]._id;
-      console.log(this.cuisine);
-      console.log(this.restID);
-    },
-    modifierRestaurants(event) {
-      // Modfier un restaurant
-      // REQUETES PUT
-
-      console.log(this.name);
-      // Pour éviter que la page ne se ré-affiche
-      event.preventDefault();
-
-      // Récupération du formulaire. Pas besoin de document.querySelector
-      // ou document.getElementById puisque c'est le formulaire qui a généré
-      // l'événement
-      let form = event.target;
-      // Récupération des valeurs des champs du formulaire
-      // en prévision d'un envoi multipart en ajax/fetch
-      let donneesFormulaire = new FormData(event.target);
-
-      console.log(event.target);
-
-      let url = "http://localhost:4545/api/restaurants/" + this.restID;
-
-      fetch(url, {
-        method: "PUT",
-        body: donneesFormulaire,
-        mode: "cors"
-      })
-        .then(responseJSON => {
-          responseJSON.json().then(res => {
-            // arrow function préserve le this
-            // Maintenant res est un vrai objet JavaScript
-            console.log("Restaurant inséré");
-            this.getRestaurantsFromServer();
-
-            // remettre le formulaire à zéro
-          });
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
-    },
-    ajouterRestaurant(event) {
-      // eviter le comportement par defaut
-      event.preventDefault();
-
-      let form = event.target;
-      let donneesFormulaire = new FormData(form);
-
-      let url = "http://localhost:4545/api/restaurants";
-
-      fetch(url, {
-        method: "POST",
-        body: donneesFormulaire
-      })
-        .then(responseJSON => {
-          responseJSON.json().then(res => {
-            // arrow function préserve le this
-            // Maintenant res est un vrai objet JavaScript
-            console.log("Restaurant inséré");
-            this.getRestaurantsFromServer();
-
-            // remettre le formulaire à zéro
-            this.name = "";
-            this.cuisine = "";
           });
         })
         .catch(function(err) {
@@ -362,5 +288,20 @@ td {
   border-radius: 50%;
   background: #7e3d4e;
   cursor: pointer;
+}
+
+input[type="text"] {
+  width: 20%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+input[type="text"]:focus {
+  border: 3px solid #555;
 }
 </style>

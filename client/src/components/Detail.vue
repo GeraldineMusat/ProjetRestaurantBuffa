@@ -1,14 +1,14 @@
 <template>
   <div>
-    <h3>Detail du restaurant : {{restaurant.name}}</h3>
+    <h3>Detail du restaurant : {{r['name']}}</h3>
 
     <!-- <router-link :to="`/menu/${r._id}`">Menu</router-link>  -->
     <app-restau-detail
-      v-bind:cuisine="restaurant.cuisine"
-      v-bind:building="restaurant.address.building"
-      v-bind:street="restaurant.address.street"
-      v-bind:zipcode="restaurant.address.zipcode"
-      v-bind:borough="restaurant.borough"
+      v-bind:cuisine="r['cuisine']"
+      v-bind:building="a['building']"
+      v-bind:street="a['street']"
+      v-bind:zipcode="a['zipcode']"
+      v-bind:borough="r['borough']"
     ></app-restau-detail>
 
     <h4>Note(s)</h4>
@@ -31,7 +31,21 @@ export default {
       name: "",
       nameRecherche: "",
       restID: 0,
-      grades: []
+      grades: [],
+      building: "",
+      street: "",
+      zipcode: "",
+      borough: "",
+      r: {
+        'name': '',
+        'cuisine': '',
+        'borough': ''
+      },
+      a: {
+        'building': '',
+        'street': '',
+        'zipcode': ''
+      }
     };
   },
   mounted() {
@@ -55,6 +69,20 @@ export default {
           this.grades = reponseJS.restaurant.grades;
           console.log(reponseJS);
           console.log(this.restaurant.address);
+
+          this.r['cuisine'] = this.restaurant.cuisine;
+
+          //console.log(this.r['cuisine']);
+
+          this.r['name'] = this.restaurant.name;
+          this.r['borough'] = this.restaurant.borough;
+
+          if (this.restaurant.address !== undefined) {
+            this.a['building'] = this.restaurant.address.building;
+            this.a['street'] = this.restaurant.address.street;
+            this.a['zipcode'] = this.restaurant.address.zipcode;
+          }
+
         })
         .catch(err => {
           console.log("Une erreur est intervenue " + err);
