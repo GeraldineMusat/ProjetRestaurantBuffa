@@ -14,7 +14,6 @@ A rendre le 10 janvier 2019
 
 ## Reste a faire : 
  
-* Rechercher un restaurant
 * Affichage Menu restaurant 
 * Algorithme generation aleatoire menu pour restaurant
 * Affichage adresse restaurant sur une map
