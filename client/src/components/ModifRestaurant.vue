@@ -33,11 +33,12 @@ export default {
     this.recupResto();
     console.log("AVANT AFFICHAGE");
     this.getRestaurantsFromServer();
+    //this.RedirectUrl();
   },
   methods: {
     getRestaurantsFromServer() {
       let url = "http://localhost:4545/api/restaurants/" + this.restID;
-      
+
       fetch(url)
         .then(reponseJSON => {
           //console.log("reponse json");
@@ -47,13 +48,12 @@ export default {
           // ici on a une réponse en JS
           this.restaurant = reponseJS.restaurant;
           console.log(reponseJS);
-            this.name = this.restaurant.name;
-            this.cuisine = this.restaurant.cuisine;
+          this.name = this.restaurant.name;
+          this.cuisine = this.restaurant.cuisine;
         })
         .catch(err => {
           console.log("Une erreur est intervenue " + err);
         });
-
     },
     modifierRestaurants(event) {
       // Modfier un restaurant
@@ -84,21 +84,28 @@ export default {
           responseJSON.json().then(res => {
             // arrow function préserve le this
             // Maintenant res est un vrai objet JavaScript
-            console.log("Restaurant inséré");
-            this.getRestaurantsFromServer();
-
+            console.log("Restaurant modifié");
+            window.confirm("Restaurant modifié avec succes");
+            this.RedirectUrl();
             // remettre le formulaire à zéro
-            //this.routes.go(1);
+            this.name = "";
+            this.cuisine = "";
           });
         })
         .catch(function(err) {
           console.log(err);
         });
     },
-     recupResto() {
+    recupResto() {
       var CheminComplet = document.location.href;
       var tab = CheminComplet.split("/");
       this.restID = tab[4];
+    },
+    RedirectUrl() {
+      var CheminComplet = document.location.href;
+      var tab = CheminComplet.split("/");
+      var url = tab[0] + "/restaurants";
+      window.location.replace(url);
     }
   }
 };
