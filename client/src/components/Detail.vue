@@ -2,7 +2,8 @@
   <div>
     <h3>Detail du restaurant : {{r['name']}}</h3>
 
-    <!-- <router-link :to="`/menu/${r._id}`">Menu</router-link>  -->
+    <router-link class="button" :to="`/menu/${restaurant._id}`">Menu</router-link>
+
     <app-restau-detail
       v-bind:cuisine="r['cuisine']"
       v-bind:building="a['building']"
@@ -11,14 +12,38 @@
       v-bind:borough="r['borough']"
     ></app-restau-detail>
 
-    <h4>Note(s)</h4>
+    <div class="center">
+      
+    <h3>Note(s)</h3>
+      <table>
+        <tr class="title">
+          <th>Date</th>
+          <th>Grade</th>
+          <th>Score</th>
+        </tr>
+        <tbody>
+          <!-- <tr class="content" v-for="g in grades">
+            <td>{{g.date}}</td>
+            <td>{{g.grade}}</td>
+            <td>{{g.score}}</td>
+          </tr> -->
+          <app-grades
+            v-for="g in grades"
+            v-bind:date="g.date"
+            v-bind:grade="g.grade"
+            v-bind:score="g.score"
+          ></app-grades>
+        </tbody>
+      </table>
+    </div>
 
+    <!-- 
     <app-grades
       v-for="g in grades"
       v-bind:date="g.date"
       v-bind:grade="g.grade"
       v-bind:score="g.score"
-    ></app-grades>
+    ></app-grades>-->
   </div>
 </template>
 
@@ -37,14 +62,14 @@ export default {
       zipcode: "",
       borough: "",
       r: {
-        'name': '',
-        'cuisine': '',
-        'borough': ''
+        name: "",
+        cuisine: "",
+        borough: ""
       },
       a: {
-        'building': '',
-        'street': '',
-        'zipcode': ''
+        building: "",
+        street: "",
+        zipcode: ""
       }
     };
   },
@@ -70,19 +95,18 @@ export default {
           console.log(reponseJS);
           console.log(this.restaurant.address);
 
-          this.r['cuisine'] = this.restaurant.cuisine;
+          this.r["cuisine"] = this.restaurant.cuisine;
 
           //console.log(this.r['cuisine']);
 
-          this.r['name'] = this.restaurant.name;
-          this.r['borough'] = this.restaurant.borough;
+          this.r["name"] = this.restaurant.name;
+          this.r["borough"] = this.restaurant.borough;
 
           if (this.restaurant.address !== undefined) {
-            this.a['building'] = this.restaurant.address.building;
-            this.a['street'] = this.restaurant.address.street;
-            this.a['zipcode'] = this.restaurant.address.zipcode;
+            this.a["building"] = this.restaurant.address.building;
+            this.a["street"] = this.restaurant.address.street;
+            this.a["zipcode"] = this.restaurant.address.zipcode;
           }
-
         })
         .catch(err => {
           console.log("Une erreur est intervenue " + err);
@@ -96,3 +120,42 @@ export default {
   }
 };
 </script>
+
+<style>
+.center {
+  margin: 0 auto;
+  width: 500px;
+}
+.button {
+  text-decoration: none;
+  background: #cdb1b2;
+  color: #7e3d4e;
+  padding: 15px;
+  border-radius: 0;
+  font-weight: bold;
+  font-size: 15px;
+  border: 0;
+  border-radius: 50px;
+}
+.content {
+  border: 1px solid 878177;
+  border-radius: 10px;
+  color: #665e52;
+  font-size: 15px;
+}
+
+.title {
+  border: 1px solid 878177;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  font-size: 25px;
+  color: #595157;
+}
+
+td {
+  padding: 5px;
+  border-radius: 10px;
+  text-align: center;
+}
+</style>

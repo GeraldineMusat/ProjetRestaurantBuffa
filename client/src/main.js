@@ -5,6 +5,7 @@ import Restaurants from "./components/Restaurants.vue";
 import Add from "./components/AddRestaurants.vue";
 import Detail from "./components/Detail.vue";
 import Modif from "./components/ModifRestaurant.vue";
+import Menu from "./components/Menu.vue";
 
 // Définition des routes
 Vue.use(VueRouter);
@@ -13,7 +14,8 @@ const routes = [
   { path: "/restaurants", component: Restaurants },
   { path: "/add", component: Add },
   { path: "/detail/:id", component: Detail },
-  { path: "/modif/:id", component: Modif }
+  { path: "/modif/:id", component: Modif },
+  { path: "/menu/:id", component: Menu }
 ];
 
 const router = new VueRouter({
@@ -27,31 +29,26 @@ Vue.component("app-grades", {
     return {};
   },
   template: `
-		<table>
-		  <tr>
-			<th>Date</th>
-			<th>Grade</th>
-			<th>Score</th>
-		  </tr>
-	
-		  <tbody>
-			<tr>
-			  <td>{{date}}</td>
-			  <td>{{grade}}</td>
-			  <td>{{score}}</td>
-			</tr>
-		  </tbody>
-		</table>
+    <tr>
+      <td>{{date}}</td>
+      <td>{{grade}}</td>
+      <td>{{score}}</td>
+    </tr>
 		`
 });
 
 Vue.component("app-restau-detail", {
   props: ["cuisine", "building", "street", "zipcode", "borough"],
   template: `
-    <ul>
-      <li>Cuisine : {{cuisine}}</li>
-      <li>Adresse : {{building}}, {{street}} {{zipcode}} {{borough}}</li>
-    </ul>
+  <div>
+    <p>
+      Cuisine : {{cuisine}}
+    </p>
+    
+    <p>
+      Adresse : {{building}}, {{street}} {{zipcode}} {{borough}}
+    </p>
+  </div>  
 	`
 });
 

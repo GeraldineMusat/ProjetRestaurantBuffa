@@ -28,7 +28,6 @@
           class="content"
           v-for="r,index in restaurants"
           v-bind:style="{backgroundColor:getColor(index)}"
-          v-bind:class="{bordureRouge:(index === 2)}"
         >
           <td>{{r.name}}</td>
           <td>{{r.cuisine}}</td>
