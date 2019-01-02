@@ -4,16 +4,23 @@
 A rendre le 10 janvier 2019
 ```
 
-## Doit contenir 
+## Utilisation
+
+```sh
+chmod u+x launchServer.sh
+./launchServer.sh
+```
+
+## Doit contenir
 
 * Application Restaurants en mode **CLI**
 * Des composant **custom**
 * Affichage detaille d'un restaurant (photo + addresse google + carte menu detaille)
 * Affichage du menu d'un restaurant
-* Affichage recapitulatif commande : facture 
+* Affichage recapitulatif commande : facture
 
-## Reste a faire : 
- 
+## Reste a faire :
+
 * Affichage adresse restaurant sur une map
-* Affichage recapitulatif commande : facture 
-* CSS 
+* Affichage recapitulatif commande : facture
+* CSS
