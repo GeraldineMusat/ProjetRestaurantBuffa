@@ -8,9 +8,9 @@
 			</tr>
 			<tbody>
 				<tr v-for="aProduct in products" :key="aProduct.plat">
-					<td>{{ aProduct.plat }}</td>
+					<td>{{ aProduct.type }}</td>
 					<td>{{ aProduct.prix }}</td>
-					<td>{{ aProduct.quantite }}</td>
+					<td>{{ aProduct.qu }}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -22,13 +22,10 @@
 export default
 {
 	name : 'bill',
-	data()
-	{
-		return 	{
-					restaurant : {},
-					products : []
-				};
-	}
+	props :
+	[
+		'products'
+	]
 }
 </script>
 

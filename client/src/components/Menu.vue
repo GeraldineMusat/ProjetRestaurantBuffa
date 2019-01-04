@@ -74,7 +74,6 @@
 
 	<div id='bill' style="display : none">
 		<app-bill
-			:restaurant="restaurant"
 			:products="shoppingCart"
 		></app-bill>
 	</div>
