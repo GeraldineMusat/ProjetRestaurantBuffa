@@ -1,6 +1,8 @@
 <template>
 	<div>
+
 		<table>
+
 			<tr class="title">
 				<th>Plats</th>
 				<th>Prix</th>
@@ -15,6 +17,14 @@
 			</tbody>
 		</table>
 
+		<div>
+
+			<button @click="validateCommand()">Valider</button>
+
+			<div id='message'></div>
+
+		</div>
+
 	</div>
 </template>
 
@@ -25,11 +35,42 @@ export default
 	props :
 	[
 		'products'
-	]
+	],
+	methods :
+	{
+		validateCommand()
+		{
+			this.$el.querySelector( '#message' ).innerText = 'Votre commande a été envoyé.'
+		}
+	}
 }
 </script>
 
 <style>
+
+table
+{
+	border-spacing: 20px;
+}
+
+/* TODO make a component out of this button instead of copy pasting the css everytime */
+button
+{
+	background: #cdb1b2;
+	color: #7e3d4e;
+	padding: 15px;
+	border-radius: 0;
+	font-weight: bold;
+	font-size: 15px;
+	border: 0;
+	border-radius: 50px;
+}
+
+
+#message
+{
+	color: lightcoral;
+}
 
 </style>
 

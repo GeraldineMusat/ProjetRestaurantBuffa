@@ -11,18 +11,19 @@ import Modif from "./components/ModifRestaurant.vue";
 import Menu from "./components/Menu.vue";
 import Bill from './components/Bill.vue'
 
-// Définition des routes
+////////////////////////////////////////////////////////////
+
 Vue.use(VueRouter);
 
 Vue.use( VueGoogleMaps,
 {
-  load:
-  {
-    key: sensibleInformations.MAPS.API_KEY
-  }
+	load : { key: sensibleInformations.MAPS.API_KEY }
 })
 
-const routes = [
+////////////////////////////////////////////////////////////
+
+const routes =
+[
   { path: "/restaurants", component: Restaurants },
   { path: "/add", component: Add },
   { path: "/detail/:id", component: Detail },
@@ -34,6 +35,8 @@ const router = new VueRouter({
   routes: routes,
   mode: "history"
 });
+
+////////////////////////////////////////////////////////////
 
 Vue.component("app-grades", {
   props: ["date", "grade", "score"],
@@ -65,6 +68,8 @@ Vue.component("app-restau-detail", {
 });
 
 Vue.component( 'app-bill', Bill )
+
+////////////////////////////////////////////////////////////
 
 new Vue({
   el: "#app",
