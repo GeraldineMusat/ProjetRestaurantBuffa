@@ -13,7 +13,7 @@
     ></app-restau-detail>
 
     <div class="center">
-      
+
     <h3>Note(s)</h3>
       <table>
         <tr class="title">
@@ -37,7 +37,7 @@
       </table>
     </div>
 
-    <!-- 
+    <!--
     <app-grades
       v-for="g in grades"
       v-bind:date="g.date"
@@ -73,49 +73,60 @@ export default {
       }
     };
   },
-  mounted() {
+  mounted()
+  {
     this.recupResto();
     console.log("AVANT AFFICHAGE");
     this.getRestaurantsFromServer();
   },
-  methods: {
-    getRestaurantsFromServer() {
-      let url = "http://localhost:4545/api/restaurants/" + this.restID;
-      console.log(url);
+  methods:
+  {
+    getRestaurantsFromServer()
+    {
+		let url = "http://localhost:4545/api/restaurants/" + this.restID;
 
-      fetch(url)
-        .then(reponseJSON => {
-          //console.log("reponse json");
-          return reponseJSON.json();
-        })
-        .then(reponseJS => {
-          // ici on a une réponse en JS
-          this.restaurant = reponseJS.restaurant;
-          this.grades = reponseJS.restaurant.grades;
-          console.log(reponseJS);
-          console.log(this.restaurant.address);
+		fetch(url)
+			.then(reponseJSON =>
+			{
+				return reponseJSON.json();
+			})
+			.then(reponseJS =>
+			{
+				this.restaurant = reponseJS.restaurant;
+				this.grades = reponseJS.restaurant.grades;
 
-          this.r["cuisine"] = this.restaurant.cuisine;
+				console.log( 'grades', this.grades )
 
-          //console.log(this.r['cuisine']);
+				this.grades.forEach( grade =>
+				{
+					let date = new Date( grade.date );
+					let noMonth = date.getMonth();
+					let noDay = date.getDay();
+					let noYear = date.getFullYear();
 
-          this.r["name"] = this.restaurant.name;
-          this.r["borough"] = this.restaurant.borough;
+					grade.date = `${ noYear }-${ noDay }-${ noMonth }`;
+				});
 
-          if (this.restaurant.address !== undefined) {
-            this.a["building"] = this.restaurant.address.building;
-            this.a["street"] = this.restaurant.address.street;
-            this.a["zipcode"] = this.restaurant.address.zipcode;
-          }
-        })
-        .catch(err => {
-          console.log("Une erreur est intervenue " + err);
-        });
+
+				this.r["cuisine"] = this.restaurant.cuisine;
+
+				this.r["name"] = this.restaurant.name;
+				this.r["borough"] = this.restaurant.borough;
+
+				if(this.restaurant.address !== undefined)
+				{
+					this.a["building"] = this.restaurant.address.building;
+					this.a["street"] = this.restaurant.address.street;
+					this.a["zipcode"] = this.restaurant.address.zipcode;
+				}
+			})
+			.catch( err => console.error("Une erreur est intervenue " + err ) );
     },
-    recupResto() {
-      var CheminComplet = document.location.href;
-      var tab = CheminComplet.split("/");
-      this.restID = tab[4];
+	recupResto()
+	{
+		var CheminComplet = document.location.href;
+		var tab = CheminComplet.split("/");
+		this.restID = tab[4];
     }
   }
 };
