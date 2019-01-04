@@ -1,48 +1,61 @@
 <template>
-  <div>
+<div>
+
     <h3>Detail du restaurant : {{r['name']}}</h3>
 
-    <router-link class="button" :to="`/menu/${restaurant._id}`">Menu</router-link>
+    <div class="rowContainer">
 
-    <GmapMap
-      :center="coordinates"
-      :zoom="7"
-      map-type-id="terrain"
-      class="map"
-    ></GmapMap>
+		<GmapMap
+			:center="coordinates"
+			:zoom="7"
+			map-type-id="terrain"
+			class="map"
+		>
+			<GmapMarker
+				:position="coordinates"
+				:clickable="true"
+				:draggable="true"
+			/>
+		</GmapMap>
 
-    <app-restau-detail
-      v-bind:cuisine="r['cuisine']"
-      v-bind:building="a['building']"
-      v-bind:street="a['street']"
-      v-bind:zipcode="a['zipcode']"
-      v-bind:borough="r['borough']"
-    ></app-restau-detail>
+		<app-restau-detail
+			v-bind:cuisine="r['cuisine']"
+			v-bind:building="a['building']"
+			v-bind:street="a['street']"
+			v-bind:zipcode="a['zipcode']"
+			v-bind:borough="r['borough']"
+		>
+		</app-restau-detail>
 
-    <div class="center">
+		<!--  Notes -->
+		<div>
+			<h3>Note(s)</h3>
 
-      <h3>Note(s)</h3>
-        <table>
+			<table>
+				<tr class="title">
+					<th>Date</th>
+					<th>Grade</th>
+					<th>Score</th>
+				</tr>
 
-          <tr class="title">
-            <th>Date</th>
-            <th>Grade</th>
-            <th>Score</th>
-          </tr>
-
-          <tbody>
-            <app-grades
-              v-for="g in grades"
-              v-bind:date="g.date"
-              v-bind:grade="g.grade"
-              v-bind:score="g.score"
-            ></app-grades>
-          </tbody>
-
-        </table>
+				<tbody>
+					<app-grades
+					v-for="g in grades"
+					v-bind:date="g.date"
+					v-bind:grade="g.grade"
+					v-bind:score="g.score"
+					></app-grades>
+				</tbody>
+			</table>
+		</div>
 
     </div>
-  </div>
+
+	<div class="menuDiv">
+		<router-link class="button" :to="`/menu/${restaurant._id}`">Voir le menu</router-link>
+	</div>
+
+</div>
 </template>
 
 <script>
@@ -141,10 +154,6 @@ export default
 
 <style>
 
-.center {
-  margin: 0 auto;
-  width: 500px;
-}
 .button {
   text-decoration: none;
   background: #cdb1b2;
@@ -180,8 +189,20 @@ td {
 
 .map
 {
-  margin-top: 100px;
   width: 500px;
   height: 300px
+}
+
+.rowContainer
+{
+	display: flex;
+	justify-content: space-around
+}
+
+.menuDiv
+{
+	margin: auto;
+	position: absolute;
+	left: 50%;
 }
 </style>

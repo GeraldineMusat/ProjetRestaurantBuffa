@@ -6,9 +6,15 @@ A rendre le 10 janvier 2019
 
 ## Utilisation
 
+`Le serveur étant modifié par rapport à celui fourni initialement, merci de bien vouloir utiliser notre version.`
+
 ```sh
+# Server
 chmod u+x launchServer.sh
 ./launchServer.sh
+
+# Client
+cd client && npm i && npm run dev
 ```
 
 ## Doit contenir
