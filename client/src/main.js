@@ -9,6 +9,7 @@ import Add from "./components/AddRestaurants.vue";
 import Detail from "./components/Detail.vue";
 import Modif from "./components/ModifRestaurant.vue";
 import Menu from "./components/Menu.vue";
+import Bill from './components/Bill.vue'
 
 // Définition des routes
 Vue.use(VueRouter);
@@ -62,6 +63,8 @@ Vue.component("app-restau-detail", {
   </div>
 	`
 });
+
+Vue.component( 'app-bill', Bill )
 
 new Vue({
   el: "#app",

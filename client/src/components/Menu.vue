@@ -1,72 +1,83 @@
 <template>
   <div>
     <h3>Detail du restaurant : {{restaurant.name}}</h3>
-    <button v-on:click="RedirectUrl()">Retour a la fiche detail du restaurant</button> 
-    <button v-on:click="passezCommande()">Passez commande</button> 
+    <button v-on:click="RedirectUrl()">Retour a la fiche detail du restaurant</button>
+    <button v-on:click="passezCommande()">Passez commande</button>
     <h3>Total TTC : {{total}}</h3>
-    <table>
-      <tr class="title">
-        <th>Entrees</th>
-        <th>Prix</th>
-        <th>Quantite</th>
-      </tr>
-      <tbody>
-        <tr class="content" v-for="e,index in tab_entrees">
-        
-          <td>{{ e.entree }}</td>
-          <td>{{ e.prix }} E</td>
-          <td>
-                <button v-on:click="increase_quantity(index, tab_entrees)">+</button>
-                <input readonly type="number" name="value_quantity" min="0" max="100" v-bind:value=e.qu>
-                <button  v-on:click="decrese_quantity(index, tab_entrees)">-</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-<br/>
-    <table>
-      <tr class="title">
-        <th>Plats</th>
-        <th>Prix</th>
-        <th>Quantite</th>
-      </tr>
-      <tbody>
-        <tr
-          class="content"
-          v-for="p, index in tab_plats"
-        >
-          <td>{{p.plat}}</td>
-          <td>{{p.prix}} E</td>
-          <td>
-                <button v-on:click="increase_quantity(index, tab_plats)">+</button>
-                <input readonly type="number" name="value_quantity" min="0" max="100" v-bind:value=p.qu>
-                <button  v-on:click="decrese_quantity(index, tab_plats)">-</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-<br/>
-    <table>
-      <tr class="title">
-        <th>Desserts</th>
-        <th>Prix</th>
-        <th>Quantite</th>
-      </tr>
-      <tbody>
-        <tr
-          class="content"
-          v-for="d, index in tab_desserts"
-        >
-          <td>{{d.dessert}}</td>
-          <td>{{d.prix}} E</td>
-          <td>
-                <button v-on:click="increase_quantity(index,tab_desserts)">+</button>
-                <input readonly type="number" name="value_quantity" min="0" max="100" v-bind:value=d.qu>
-                <button  v-on:click="decrese_quantity(index, tab_desserts)">-</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+
+	<div id="mainContainer">
+
+		<table>
+			<tr class="title">
+				<th>Entrees</th>
+				<th>Prix</th>
+				<th>Quantite</th>
+			</tr>
+			<tbody>
+				<tr class="content" v-for="e,index in tab_entrees">
+
+				<td>{{ e.entree }}</td>
+				<td>{{ e.prix }} E</td>
+				<td>
+						<button v-on:click="increase_quantity(index, tab_entrees)">+</button>
+						<input readonly type="number" name="value_quantity" min="0" max="100" v-bind:value=e.qu>
+						<button  v-on:click="decrese_quantity(index, tab_entrees)">-</button>
+				</td>
+				</tr>
+			</tbody>
+		</table>
+		<br/>
+		<table>
+			<tr class="title">
+				<th>Plats</th>
+				<th>Prix</th>
+				<th>Quantite</th>
+			</tr>
+			<tbody>
+				<tr
+				class="content"
+				v-for="p, index in tab_plats"
+				>
+				<td>{{p.plat}}</td>
+				<td>{{p.prix}} E</td>
+				<td>
+						<button v-on:click="increase_quantity(index, tab_plats)">+</button>
+						<input readonly type="number" name="value_quantity" min="0" max="100" v-bind:value=p.qu>
+						<button  v-on:click="decrese_quantity(index, tab_plats)">-</button>
+				</td>
+				</tr>
+			</tbody>
+		</table>
+		<br/>
+		<table>
+			<tr class="title">
+				<th>Desserts</th>
+				<th>Prix</th>
+				<th>Quantite</th>
+			</tr>
+			<tbody>
+				<tr
+				class="content"
+				v-for="d, index in tab_desserts"
+				>
+				<td>{{d.dessert}}</td>
+				<td>{{d.prix}} E</td>
+				<td>
+						<button v-on:click="increase_quantity(index,tab_desserts)">+</button>
+						<input readonly type="number" name="value_quantity" min="0" max="100" v-bind:value=d.qu>
+						<button  v-on:click="decrese_quantity(index, tab_desserts)">-</button>
+				</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div id='bill'>
+		<app-bill
+			:restaurant='restaurant'
+		/>
+	</div>
+
   </div>
 </template>
 
@@ -100,11 +111,11 @@ export default {
       tab_desserts: [],
       entrees: {
           entree: [
-            'salade chevre chaud', 
-            'poivrons grillee', 
-            'salade nicoise', 
-            'feuillete chevre', 
-            'salade tomates mozarella', 
+            'salade chevre chaud',
+            'poivrons grillee',
+            'salade nicoise',
+            'feuillete chevre',
+            'salade tomates mozarella',
             'escargot',
             'farcie nicois',
             'bruchceta',
@@ -188,19 +199,17 @@ export default {
   methods: {
     getRestaurantsFromServer() {
       let url = "http://localhost:4545/api/restaurants/" + this.restID;
-      console.log(url);
 
       fetch(url)
         .then(reponseJSON => {
-          //console.log("reponse json");
           return reponseJSON.json();
         })
         .then(reponseJS => {
-          // ici on a une réponse en JS
+
           this.restaurant = reponseJS.restaurant;
         })
         .catch(err => {
-          console.log("Une erreur est intervenue " + err);
+          console.error("Une erreur est intervenue " + err);
         });
     },
     recupResto() {
@@ -216,13 +225,13 @@ export default {
 
             creer un tableau avec les valeurs prerentrer
             trois tableaux en tout : entree plat dessert (10 choix different dans chaque)
-            un algo qui tire un nombre aleatoire entre 0 et 9, cinq fois pour chaque tableau 
+            un algo qui tire un nombre aleatoire entre 0 et 9, cinq fois pour chaque tableau
                         (5 choix different pour les trois tableau : 5 entrees, 5 plats, 5 desserts)
-            creer trois nouveaux tableaux avec chacun leur 5 choix 
+            creer trois nouveaux tableaux avec chacun leur 5 choix
             Afficher ces trois nouveaux tableaux
 
         */
-        
+
         var rd;
         var obj = {};
         var ent = "";
@@ -242,8 +251,6 @@ export default {
             obj = {'dessert' : ent , 'prix': pr, qu:0};
             this.tab_desserts.push(obj);
         }
-        console.log(this.tab_entrees);
-        console.log(this.tab_entrees);
     },
     recupResto() {
       var CheminComplet = document.location.href;
@@ -256,19 +263,63 @@ export default {
       var url = tab[0] + "/detail/" + tab[4];
       window.location.replace(url);
     },
-    increase_quantity(index, tab) {
+	increase_quantity(index, tab)
+	{
         tab[index]['qu']++;
         this.total = this.total + tab[index]['prix'];
-        console.log(this.total);
+
     },
-    decrese_quantity(index, tab) {
+	decrese_quantity(index, tab)
+	{
         if(tab[index].qu > 0){
             tab[index].qu--;
             this.total = this.total - tab[index]['prix'];
         }
-        console.log(this.total);
     },
-    passezCommance() {}
+	passezCommande()
+	{
+		let mainContainer = this.$el.querySelector( '#mainContainer' );
+
+		this.toggleVisibility( mainContainer );
+
+		/*
+			TODO : Retravailler la carte pour plutôt obtenir des produits sous forme
+			{ name : 'Pizza', prix : 4, type : 'plat', quantity : 0 }
+			afin de pouvoir ajouter directement le produit à un pannier et mettre seulement à jour sa quantité
+			puis directement envoyer le panier au component de facture
+		*/
+		let cart = [];
+
+		pushOrdoredElements( this.tab_entrees );
+		pushOrdoredElements( this.tab_plats );
+		pushOrdoredElements( this.tab_desserts );
+
+		console.log( cart )
+
+		///////////////////////////////////////////////////////
+
+		function pushOrdoredElements( array )
+		{
+			if( array )
+			{
+				array.forEach( dish =>
+				{
+					if( dish.qu > 0 )
+					{
+						let type = dish.entree || dish.plat || dish.dessert ;
+						delete dish.entree;
+						delete dish.plat;
+						delete dish.dessert;
+						cart.push( { ...dish, type } )
+					}
+				})
+			}
+		}
+	},
+	toggleVisibility( htmlElement )
+	{
+		htmlElement.style.display === "none" ? htmlElement.style.display = "block" : htmlElement.style.display = "none";
+	}
   }
 };
 </script>

@@ -27,6 +27,5 @@ cd client && npm i && npm run dev
 
 ## Reste a faire :
 
-* Affichage adresse restaurant sur une map
 * Affichage recapitulatif commande : facture
 * CSS
