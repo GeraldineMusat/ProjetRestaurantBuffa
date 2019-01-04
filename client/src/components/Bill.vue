@@ -41,6 +41,7 @@ export default
 		validateCommand()
 		{
 			this.$el.querySelector( '#message' ).innerText = 'Votre commande a été envoyé.'
+			this.$emit( 'commandSent' );
 		}
 	}
 }

@@ -75,6 +75,7 @@
 	<div id='bill' style="display : none">
 		<app-bill
 			:products="shoppingCart"
+			@commandSent="shoppingCart = []"
 		></app-bill>
 	</div>
 
@@ -279,6 +280,7 @@ export default {
     },
 	passezCommande()
 	{
+		this.shoppingCart = [];
 		addOrederedElementsToShoppingCart.bind( this )();
 
 		let menuPicker = this.$el.querySelector( '#menuPicker' );
@@ -313,10 +315,13 @@ export default {
 						if( dish.qu > 0 )
 						{
 							let type = dish.entree || dish.plat || dish.dessert ;
-							delete dish.entree;
-							delete dish.plat;
-							delete dish.dessert;
-							this.shoppingCart.push( { ...dish, type } )
+
+							let dishCopy = { ...dish };
+							delete dishCopy.entree;
+							delete dishCopy.plat;
+							delete dishCopy.dessert;
+
+							this.shoppingCart.push( { ...dishCopy, type } )
 						}
 					})
 				}
