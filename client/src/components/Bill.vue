@@ -7,9 +7,7 @@
 				<th>Quantite</th>
 			</tr>
 			<tbody>
-				<tr
-					v-for="aProduct, index in products"
-				>
+				<tr v-for="aProduct in products" :key="aProduct.plat">
 					<td>{{ aProduct.plat }}</td>
 					<td>{{ aProduct.prix }}</td>
 					<td>{{ aProduct.quantite }}</td>

@@ -5,7 +5,7 @@
     <button v-on:click="passezCommande()">Passez commande</button>
     <h3>Total TTC : {{total}}</h3>
 
-	<div id="mainContainer">
+	<div id="menuPicker">
 
 		<table>
 			<tr class="title">
@@ -72,10 +72,11 @@
 		</table>
 	</div>
 
-	<div id='bill'>
+	<div id='bill' style="display : none">
 		<app-bill
-			:restaurant='restaurant'
-		/>
+			:restaurant="restaurant"
+			:products="shoppingCart"
+		></app-bill>
 	</div>
 
   </div>
@@ -188,7 +189,8 @@ export default {
           ]
       },
       value_quantity:0,
-      total:0
+	  total:0,
+	  shoppingCart : []
     };
   },
   mounted() {
@@ -278,47 +280,56 @@ export default {
     },
 	passezCommande()
 	{
-		let mainContainer = this.$el.querySelector( '#mainContainer' );
+		addOrederedElementsToShoppingCart.bind( this )();
 
-		this.toggleVisibility( mainContainer );
+		let menuPicker = this.$el.querySelector( '#menuPicker' );
+		let bill = this.$el.querySelector( '#bill' );
 
-		/*
-			TODO : Retravailler la carte pour plutôt obtenir des produits sous forme
-			{ name : 'Pizza', prix : 4, type : 'plat', quantity : 0 }
-			afin de pouvoir ajouter directement le produit à un pannier et mettre seulement à jour sa quantité
-			puis directement envoyer le panier au component de facture
-		*/
-		let cart = [];
-
-		pushOrdoredElements( this.tab_entrees );
-		pushOrdoredElements( this.tab_plats );
-		pushOrdoredElements( this.tab_desserts );
-
-		console.log( cart )
+		this.toggleVisibility( menuPicker );
+		this.toggleVisibility( bill );
 
 		///////////////////////////////////////////////////////
 
-		function pushOrdoredElements( array )
+		function addOrederedElementsToShoppingCart()
 		{
-			if( array )
+			/*
+				TODO : Retravailler la carte pour plutôt obtenir des produits sous forme
+				{ name : 'Pizza', prix : 4, type : 'plat', quantity : 0 }
+				afin de pouvoir ajouter directement le produit à un pannier et mettre seulement à jour sa quantité
+				puis directement envoyer le panier au component de facture
+			*/
+
+			pushOrderedElements.bind( this )( this.tab_entrees );
+			pushOrderedElements.bind( this )( this.tab_plats );
+			pushOrderedElements.bind( this )( this.tab_desserts );
+
+			//////////////////////////////////////////////////////
+
+			function pushOrderedElements( array )
 			{
-				array.forEach( dish =>
+				if( array )
 				{
-					if( dish.qu > 0 )
+					array.forEach( dish =>
 					{
-						let type = dish.entree || dish.plat || dish.dessert ;
-						delete dish.entree;
-						delete dish.plat;
-						delete dish.dessert;
-						cart.push( { ...dish, type } )
-					}
-				})
+						if( dish.qu > 0 )
+						{
+							let type = dish.entree || dish.plat || dish.dessert ;
+							delete dish.entree;
+							delete dish.plat;
+							delete dish.dessert;
+							this.shoppingCart.push( { ...dish, type } )
+						}
+					})
+				}
 			}
 		}
+
 	},
 	toggleVisibility( htmlElement )
 	{
+		console.log( 'css avant', htmlElement.style.display)
 		htmlElement.style.display === "none" ? htmlElement.style.display = "block" : htmlElement.style.display = "none";
+		console.log( 'css après', htmlElement.style.display)
 	}
   }
 };
@@ -363,4 +374,5 @@ button {
   border: 0;
   border-radius: 50px;
 }
+
 </style>
