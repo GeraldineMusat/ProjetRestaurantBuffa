@@ -4,6 +4,13 @@
 
     <router-link class="button" :to="`/menu/${restaurant._id}`">Menu</router-link>
 
+    <GmapMap
+      :center="coordinates"
+      :zoom="7"
+      map-type-id="terrain"
+      class="map"
+    ></GmapMap>
+
     <app-restau-detail
       v-bind:cuisine="r['cuisine']"
       v-bind:building="a['building']"
@@ -14,42 +21,36 @@
 
     <div class="center">
 
-    <h3>Note(s)</h3>
-      <table>
-        <tr class="title">
-          <th>Date</th>
-          <th>Grade</th>
-          <th>Score</th>
-        </tr>
-        <tbody>
-          <!-- <tr class="content" v-for="g in grades">
-            <td>{{g.date}}</td>
-            <td>{{g.grade}}</td>
-            <td>{{g.score}}</td>
-          </tr> -->
-          <app-grades
-            v-for="g in grades"
-            v-bind:date="g.date"
-            v-bind:grade="g.grade"
-            v-bind:score="g.score"
-          ></app-grades>
-        </tbody>
-      </table>
-    </div>
+      <h3>Note(s)</h3>
+        <table>
 
-    <!--
-    <app-grades
-      v-for="g in grades"
-      v-bind:date="g.date"
-      v-bind:grade="g.grade"
-      v-bind:score="g.score"
-    ></app-grades>-->
+          <tr class="title">
+            <th>Date</th>
+            <th>Grade</th>
+            <th>Score</th>
+          </tr>
+
+          <tbody>
+            <app-grades
+              v-for="g in grades"
+              v-bind:date="g.date"
+              v-bind:grade="g.grade"
+              v-bind:score="g.score"
+            ></app-grades>
+          </tbody>
+
+        </table>
+
+    </div>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
+
+export default
+{
+  data()
+  {
     return {
       restaurant: {},
       cuisine: "",
@@ -61,6 +62,11 @@ export default {
       street: "",
       zipcode: "",
       borough: "",
+      coordinates :
+      {
+        lat : "",
+        lng : ""
+      },
       r: {
         name: "",
         cuisine: "",
@@ -95,8 +101,6 @@ export default {
 				this.restaurant = reponseJS.restaurant;
 				this.grades = reponseJS.restaurant.grades;
 
-				console.log( 'grades', this.grades )
-
 				this.grades.forEach( grade =>
 				{
 					let date = new Date( grade.date );
@@ -113,11 +117,14 @@ export default {
 				this.r["name"] = this.restaurant.name;
 				this.r["borough"] = this.restaurant.borough;
 
-				if(this.restaurant.address !== undefined)
+				if( this.restaurant.address )
 				{
 					this.a["building"] = this.restaurant.address.building;
 					this.a["street"] = this.restaurant.address.street;
-					this.a["zipcode"] = this.restaurant.address.zipcode;
+          this.a["zipcode"] = this.restaurant.address.zipcode;
+
+          this.coordinates.lat = this.restaurant.address.coord[ 0 ];
+          this.coordinates.lng = this.restaurant.address.coord[ 1 ];
 				}
 			})
 			.catch( err => console.error("Une erreur est intervenue " + err ) );
@@ -133,6 +140,7 @@ export default {
 </script>
 
 <style>
+
 .center {
   margin: 0 auto;
   width: 500px;
@@ -168,5 +176,12 @@ td {
   padding: 5px;
   border-radius: 10px;
   text-align: center;
+}
+
+.map
+{
+  margin-top: 100px;
+  width: 500px;
+  height: 300px
 }
 </style>

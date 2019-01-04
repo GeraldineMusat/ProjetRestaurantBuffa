@@ -1,5 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import * as VueGoogleMaps from 'vue2-google-maps'
+
+import sensibleInformations from './assets/sensibleInformations'
 import App from "./App.vue";
 import Restaurants from "./components/Restaurants.vue";
 import Add from "./components/AddRestaurants.vue";
@@ -9,6 +12,14 @@ import Menu from "./components/Menu.vue";
 
 // Définition des routes
 Vue.use(VueRouter);
+
+Vue.use( VueGoogleMaps,
+{
+  load:
+  {
+    key: sensibleInformations.MAPS.API_KEY
+  }
+})
 
 const routes = [
   { path: "/restaurants", component: Restaurants },
@@ -44,11 +55,11 @@ Vue.component("app-restau-detail", {
     <p>
       Cuisine : {{cuisine}}
     </p>
-    
+
     <p>
       Adresse : {{building}}, {{street}} {{zipcode}} {{borough}}
     </p>
-  </div>  
+  </div>
 	`
 });
 
