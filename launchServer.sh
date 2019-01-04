@@ -2,5 +2,5 @@
 
 mkdir -p data/db
 mongod --dbpath ./data/db &
-sleep 10
+mongoimport --db test --collection restaurants --drop --file dataset.json &
 cd serveur && npm i && node serverCrudWithMongo.js &
