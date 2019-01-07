@@ -3,7 +3,9 @@
     <h3>Detail du restaurant : {{restaurant.name}}</h3>
     <button v-on:click="RedirectUrl()">Retour a la fiche detail du restaurant</button>
     <button v-on:click="passezCommande()">Passez commande</button>
-    <h3>Total TTC : {{total}}</h3>
+
+    <h3 v-if="total != 0">Total TTC : {{ total }}</h3>
+    <h3 v-else>Votre panier est vide</h3>
 
 	<div id="menuPicker">
 
@@ -75,7 +77,7 @@
 	<div id='bill' style="display : none">
 		<app-bill
 			:products="shoppingCart"
-			@commandSent="shoppingCart = []"
+			@commandSent="shoppingCart = []; total = 0"
 		></app-bill>
 	</div>
 
@@ -84,7 +86,7 @@
 
 <script>
 export default {
-  name: "app",
+  name: "app-menu",
   data() {
     return {
       restaurant: {},

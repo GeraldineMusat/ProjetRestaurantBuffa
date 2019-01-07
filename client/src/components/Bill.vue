@@ -17,6 +17,13 @@
 			</tbody>
 		</table>
 
+		<div
+			v-if="products.length == 0"
+			style="margin:auto;width:50%;text-align:center;"
+		>
+			Votre panier est vide
+		</div>
+
 		<div>
 
 			<button @click="validateCommand()">Valider</button>
@@ -31,7 +38,7 @@
 <script>
 export default
 {
-	name : 'bill',
+	name : 'app-bill',
 	props :
 	[
 		'products'
