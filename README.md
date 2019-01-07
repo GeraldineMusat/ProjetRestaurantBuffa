@@ -27,5 +27,4 @@ cd client && npm i && npm run dev
 
 ## Reste a faire :
 
-* Affichage recapitulatif commande : facture
 * CSS
