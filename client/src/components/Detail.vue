@@ -5,6 +5,8 @@
 
     <div class="rowContainer">
 
+			<img class="img" v-bind:src="url"/>
+
 		<GmapMap
 			:center="coordinates"
 			:zoom="7"
@@ -89,14 +91,16 @@ export default
         building: "",
         street: "",
         zipcode: ""
-      }
+      },
+			url:""
     };
   },
   mounted()
   {
     this.recupResto();
+		this.genererURL();
     console.log("AVANT AFFICHAGE");
-    this.getRestaurantsFromServer();
+		this.getRestaurantsFromServer();
   },
   methods:
   {
@@ -147,12 +151,24 @@ export default
 		var CheminComplet = document.location.href;
 		var tab = CheminComplet.split("/");
 		this.restID = tab[4];
-    }
-  }
+    }, 
+    getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+    },
+		genererURL() {
+			var rd = this.getRandomInt(10);
+			this.url = require("../img/r"+ rd + ".jpg");
+		}
+	}
 };
 </script>
 
 <style>
+
+.img{
+		height: 300px; 
+    width: 500px; 
+}
 
 .button {
   text-decoration: none;
@@ -204,5 +220,6 @@ td {
 	margin: auto;
 	position: absolute;
 	left: 50%;
+	top: 550px;
 }
 </style>
