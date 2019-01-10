@@ -25,6 +25,3 @@ cd client && npm i && npm run dev
 * Affichage du menu d'un restaurant
 * Affichage recapitulatif commande : facture
 
-## Reste a faire :
-
-* CSS
